@@ -1,0 +1,130 @@
+version: 1.0
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Laziz
+      changes:
+        - preConditions:
+            onFail: WARN
+            not:
+              tableExists:
+                tableName: book
+                schemaName: panel
+        - createTable:
+            tableName: book
+            schemaName: panel
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: varchar(150)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: author
+                  type: varchar(150)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(150)
+                  constraints:
+                    nullable: true
+
+
+  - changeSet:
+      id: 2
+      author: Laziz
+      changes:
+        - preConditions:
+            - onFail: WARN
+            - not:
+                - sqlCheck:
+                    expectedResult: 0
+                    sql: select count(*) from panel.book where id = 1 Or id = 2 Or id = 3 Or id = 4 Or id = 5;
+        - insert:
+            tableName: book
+            schemaName: panel
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: title
+                  value: 'Crime and Punishment'
+              - column:
+                  name: author
+                  value: 'F. Dostoevsky'
+              - column:
+                  name: description
+                  value: null
+        - insert:
+            tableName: book
+            schemaName: panel
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: title
+                  value: 'Anna Karenina'
+              - column:
+                  name: author
+                  value: 'L. Tolstoy'
+              - column:
+                  name: description
+                  value: null
+        - insert:
+            tableName: book
+            schemaName: panel
+            columns:
+              - column:
+                  name: id
+                  value: 3
+              - column:
+                  name: title
+                  value: 'The Brothers Karamazov'
+              - column:
+                  name: author
+                  value: 'F. Dostoevsky'
+              - column:
+                  name: description
+                  value: null
+        - insert:
+            tableName: book
+            schemaName: panel
+            columns:
+              - column:
+                  name: id
+                  value: 4
+              - column:
+                  name: title
+                  value: 'War and Peace'
+              - column:
+                  name: author
+                  value: 'L. Tolstoy'
+              - column:
+                  name: description
+                  value: null
+        - insert:
+            tableName: book
+            schemaName: panel
+            columns:
+              - column:
+                  name: id
+                  value: 5
+              - column:
+                  name: title
+                  value: 'Dead Souls'
+              - column:
+                  name: author
+                  value: 'N. Gogol'
+              - column:
+                  name: description
+                  value: null
